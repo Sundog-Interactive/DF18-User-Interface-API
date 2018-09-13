@@ -1,0 +1,22 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.sundoginteractive.uiapidemo"
+    },
+    "com.salesforce": {
+      "PACKAGE_NAME": "com.sundoginteractive.uiapidemo"
+    }
+  },
+  "dependent_plugins": {
+    "phonegap-plugin-push": {
+      "PACKAGE_NAME": "com.sundoginteractive.uiapidemo"
+    }
+  }
+}

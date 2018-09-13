@@ -1,0 +1,60 @@
+{
+  "_from": "git+https://github.com/forcedotcom/SalesforceMobileSDK-CordovaPlugin.git#v6.2.0",
+  "_id": "SalesforceMobileSDK-CordovaPlugin@6.2.0",
+  "_inBundle": false,
+  "_location": "/SalesforceMobileSDK-CordovaPlugin",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/forcedotcom/SalesforceMobileSDK-CordovaPlugin#v6.2.0",
+    "rawSpec": "https://github.com/forcedotcom/SalesforceMobileSDK-CordovaPlugin#v6.2.0",
+    "saveSpec": "git+https://github.com/forcedotcom/SalesforceMobileSDK-CordovaPlugin.git#v6.2.0",
+    "fetchSpec": "https://github.com/forcedotcom/SalesforceMobileSDK-CordovaPlugin.git",
+    "gitCommittish": "v6.2.0"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/forcedotcom/SalesforceMobileSDK-CordovaPlugin.git#49198cecc6723a3cef8b3a0c312b50e78489acda",
+  "_spec": "https://github.com/forcedotcom/SalesforceMobileSDK-CordovaPlugin#v6.2.0",
+  "_where": "/Users/craigisakson/Desktop/DF18/UI-API-Demo",
+  "author": {
+    "name": "Bharath Hariharan",
+    "email": "bhariharan@salesforce.com"
+  },
+  "bugs": {
+    "url": "https://github.com/forcedotcom/SalesforceMobileSDK-CordovaPlugin/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Wolfgang Mathurin",
+      "email": "wmathurin@salesforce.com"
+    }
+  ],
+  "deprecated": false,
+  "description": "Salesforce Mobile SDK Cordova Plugin Repository",
+  "homepage": "https://github.com/forcedotcom/SalesforceMobileSDK-CordovaPlugin",
+  "keywords": [
+    "mobilesdk",
+    "android",
+    "ios",
+    "cordova",
+    "salesforce",
+    "mobile",
+    "sdk"
+  ],
+  "licenses": [
+    {
+      "type": "Salesforce.com Mobile SDK License",
+      "url": "https://github.com/forcedotcom/SalesforceMobileSDK-CordovaPlugin/blob/master/LICENSE.md"
+    }
+  ],
+  "name": "SalesforceMobileSDK-CordovaPlugin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/forcedotcom/SalesforceMobileSDK-CordovaPlugin.git"
+  },
+  "version": "6.2.0"
+}

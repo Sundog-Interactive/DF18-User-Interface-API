@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link href="ratchet.css" rel="stylesheet">
+    <link href="ratchet-theme.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css"></link>
+
+    <script src="cordova.js"></script>
+    <script src="force.js"></script>
+    <script src="tester.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/handlebars-v4.0.11.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
+   <script>
+
+    var recId = '';
+    var acctJson = {};
+    /* Do login */
+
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        force.login(
+            function() {
+                console.log("Auth succeeded");
+                showAccountsList();
+            },
+            function(error) {
+                console.log("Auth failed: " + error);
+            }
+        );
+    });
+
+    /* This method will render a list of users from current salesforce org */
+    var showAccountsList = function() {
+
+        fetchRecords(function(data) {
+            var accounts = data.records;
+
+            var listItemsHtml = '';
+            for (var i=0; i < accounts.length; i++) {
+                listItemsHtml += ('<li class="table-view-cell" onclick="showAccount(\'' + accounts[i].Id + '\')"><div class="media-body">' + accounts[i].Name + '</div></li>');
+            }
+
+            console.log(listItemsHtml);
+
+            document.querySelector('#content').innerHTML = listItemsHtml;
+        })
+    }
+
+    var showAccount = function(recordId){
+        recId = recordId;
+        var params = {path: '/record-ui/' + recordId};
+        //medium, large
+        var agent = navigator.userAgent;
+        var isTablet = (agent.indexOf("iPad") > 0 || screen.width > 767);
+        var formFactor = (isTablet)?'medium':'small';
+        force.uiAPI(params, handleAccounts, function(error){alert('Failed to fetch Account:  ' + error)}, formFactor);
+    };
+
+    function handleAccounts(data){
+        acctJson = data;
+        var source   = document.getElementById("account-template").innerHTML;
+        var template = Handlebars.compile(source);
+
+        document.querySelector('.container').innerHTML = template(acctJson.layouts);
+    }
+
+    /* This method will fetch a list of user records from salesforce.
+    Just change the soql query to fetch another sobject. */
+    var fetchRecords = function (successHandler) {
+        var soql = 'SELECT Id, Name FROM Account LIMIT 10';
+        force.query(soql, successHandler, function(error) {
+            alert('Failed to fetch accounts: ' + error);
+        });
+    };
+
+    Handlebars.registerHelper('value', function(text) {
+        if(text != null && text.endsWith('Id')){
+            text = text.substring(0, text.length - 2);
+        }
+        try {
+            var valObj = acctJson["records"][recId]["fields"][text];
+            console.log(valObj);
+            if(valObj.hasOwnProperty("displayValue")){
+                if(valObj.displayValue != null){
+                    return valObj.displayValue;
+                }else{
+                    return valObj.value;
+                }
+            }else{
+                return '';
+            }
+        }catch(err) {
+            return '';
+        }
+    });
+
+    Handlebars.registerHelper('columnClass', function(val) {
+        return 12/val;
+    });
+
+
+    </script>
+</head>
+
+<body>
+    <header class="bar bar-nav">
+        <h1 class="title" id="headerTitle" onclick="showAccountsList();">Accounts</h1>
+    </header>
+    <div id="content" class="container content">
+    </div>
+</body>
+
+<script id="account-template" type="text/x-handlebars-template">
+    <div class="account">
+        {{#each Account}}
+            {{#each this}}
+                {{#each this}}
+                    {{#each sections}}
+                        <div>
+                            <h2>{{heading}}</h2>
+                        </div>
+                        <div class="row align-items-start">
+                            {{#each layoutRows}}
+                                {{#each layoutItems}}
+
+                                    <div class="col-xs-{{columnClass ../../columns}} col-sm-{{columnClass ../../columns}} col-md-{{columnClass ../../columns}} col-lg-{{columnClass ../../columns}}">
+                                        <label><strong>{{label}}</strong></label>
+                                        {{#each layoutComponents}}
+                                                <value>{{value apiName}}</value>
+                                        {{/each}}
+                                    </div>
+                                {{/each}}
+                            {{/each}}
+                        </div>
+                    {{/each}}
+                {{/each}}
+            {{/each}}
+        {{/each}}
+    </div>
+</script>
+</html>
