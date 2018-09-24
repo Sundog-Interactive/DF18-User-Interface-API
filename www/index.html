@@ -53,6 +53,15 @@
         })
     }
 
+    /* This method will fetch a list of user records from salesforce.
+    Just change the soql query to fetch another sobject. */
+    var fetchRecords = function (successHandler) {
+        var soql = 'SELECT Id, Name FROM Account LIMIT 10';
+        force.query(soql, successHandler, function(error) {
+            alert('Failed to fetch accounts: ' + error);
+        });
+    };
+
     var showAccount = function(recordId){
         recId = recordId;
         var params = {path: '/record-ui/' + recordId};
@@ -70,15 +79,6 @@
 
         document.querySelector('.container').innerHTML = template(acctJson.layouts);
     }
-
-    /* This method will fetch a list of user records from salesforce.
-    Just change the soql query to fetch another sobject. */
-    var fetchRecords = function (successHandler) {
-        var soql = 'SELECT Id, Name FROM Account LIMIT 10';
-        force.query(soql, successHandler, function(error) {
-            alert('Failed to fetch accounts: ' + error);
-        });
-    };
 
     Handlebars.registerHelper('value', function(text) {
         if(text != null && text.endsWith('Id')){
